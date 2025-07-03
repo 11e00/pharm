@@ -1,6 +1,7 @@
 import {createClient} from '@supabase/supabase-js';
 import { use } from 'react';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 const supabaseUrl=process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey=process.env.NEXT_PUBLIC_SUPABASE_KEY!;
 const supabase=createClient(supabaseUrl, supabaseKey);
@@ -41,5 +42,5 @@ export async function Search(text: string){
         //network error
         console.error(err);
     }
-
+    redirect('/categories');
 }
