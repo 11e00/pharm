@@ -104,43 +104,14 @@ export default function Home() {
   );
 }
 */
-import {createClient} from '@supabase/supabase-js';
-const supabaseUrl=process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey=process.env.NEXT_PUBLIC_SUPABASE_KEY!;
-const supabase=createClient(supabaseUrl, supabaseKey);
+
+import {Name} from "./db";
 
 export default async function Home() {
-    /*
-    type Customer = {
-        id: number;
-        name: string;
-        surname: string;
-        };
-    */
 
-    let name="";
-    let surname="";
-
-    try{
-        let { data:customer, error:apiError }=await supabase.from('Customer').select('*');
-        console.log(customer);
-
-        //patenta
-        name=JSON.stringify(customer?.[0].name).slice(1,-1);
-        surname=JSON.stringify(customer?.[0].surname).slice(1,-1);
-        //end of patenta
-
-        if(apiError)
-            //database error
-            console.error(apiError);
-    }catch(err){
-        //network error
-        console.error(err);
-    }
- 
   return (
     <div >
-        <p>{"Welcome "+name+" "+surname}</p>
+        <p>{"Welcome "+await Name(2)+"!"}</p>
     </div>
   );
 }
