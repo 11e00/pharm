@@ -1,5 +1,6 @@
 import {createClient} from '@supabase/supabase-js';
 import { use } from 'react';
+import Link from 'next/link';
 const supabaseUrl=process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey=process.env.NEXT_PUBLIC_SUPABASE_KEY!;
 const supabase=createClient(supabaseUrl, supabaseKey);
@@ -30,7 +31,7 @@ export async function Name(customerID:number){
 export async function Search(text: string){
     let items=null;
     try{
-        let { data:items, error:apiError }=await supabase.from('Drugs').select('*').like('name',text);
+        let { data:items, error:apiError }=await supabase.from('Drug').select('*').ilike('name',"%"+text+"%");
         console.log(items);
 
         if(apiError)
@@ -40,6 +41,5 @@ export async function Search(text: string){
         //network error
         console.error(err);
     }
-    
-    return items;
+
 }

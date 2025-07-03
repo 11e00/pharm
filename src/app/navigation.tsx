@@ -33,6 +33,8 @@ export default function Navbar(){
 
 export default function Navbar(){
     const pathname = usePathname();
+    const [query, setQuery] = useState("");
+    const [searchClick, setSearchClick] = useState(false);
     const [showProfileMenu, setProfileShow] = useState(true);
     const [showMobileMenu, setMobileShow] = useState(true);
     return(
@@ -75,9 +77,9 @@ export default function Navbar(){
                 </svg>
                 </button>
                 */}
-                <form>
-                    <input type="text" name="search" placeholder="Search drug"/>
-                    <button onClick={() => Search()} type="button" className="relative rounded-full bg-gray-800 text-sm focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">🔍</button>
+                <form className='inline-flex' onSubmit={e => { e.preventDefault(); Search(query);}}>
+                    <input type="text" name="search" placeholder="Search drug" value={query} onChange={(e) => setQuery(e.target.value)} className="max-h-7 self-center block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+                    <button style={{margin:"10px"}} onClick={() => Search(query)} onMouseDown={()=> setSearchClick((sc) => !sc) } onMouseUp={()=> setSearchClick((sc) => !sc)} type="button" className={searchClick?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"} id="user-menu-button" aria-expanded="false" aria-haspopup="true">🔍</button>
                 </form>
                 <Link href="/cart" className={"/cart"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🛒</Link>
 
