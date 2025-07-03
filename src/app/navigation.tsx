@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import './globals.css'
 
 /*
+previous barebone
 export default function Navbar(){
     return(
         <nav className="display:'inline-block">
@@ -31,13 +32,14 @@ export default function Navbar(){
 
 export default function Navbar(){
     const pathname = usePathname();
-    const [show, setShow] = useState(true);
+    const [showProfileMenu, setProfileShow] = useState(true);
+    const [showMobileMenu, setMobileShow] = useState(true);
     return(
         <nav className="bg-gray-800">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                <button type="button" className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset" aria-controls="mobile-menu" aria-expanded="false">
+                <button type="button" className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset" aria-controls="mobile-menu" aria-expanded="false" onClick={() => setMobileShow((ms) => !ms)}>
                 <span className="absolute -inset-0.5"></span>
                 <span className="sr-only">Open main menu</span>
                 <svg className="block size-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
@@ -54,7 +56,7 @@ export default function Navbar(){
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
-                    <Link href="/" className={"/"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"} aria-current="page">🏠</Link>
+                    <Link href="/" className={"/"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🏠</Link>
                     <Link href="/categories" className={"/categories"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🗃️</Link>
                     <Link href="/about" className={"/about"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>ℹ️</Link>
                     <Link href="/contact" className={"/contact"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>📞</Link>
@@ -77,14 +79,14 @@ export default function Navbar(){
                 <div className="relative ml-3">
                     
                     <div>
-                        <button type="button" className="relative flex rounded-full bg-gray-800 text-sm focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true" onClick={() => setShow((s) => !s)} >
+                        <button type="button" className="relative flex rounded-full bg-gray-800 text-sm focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true" onClick={() => setProfileShow((ps) => !ps)} >
                         <span className="absolute -inset-1.5"></span>
                         <span className="sr-only">Open user menu</span>
                         <img className="size-8 rounded-full" src="https://media.tenor.com/UtA_q1IGAQQAAAAM/asian-among.gif" alt="" />
                         </button>
                     </div>
                     
-                        <div id="dropdown" className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex={-1} style={{ display: show ? "none" : "block" }}>
+                        <div id="dropdown" className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex={-1} style={{ display: showProfileMenu ? "none" : "block" }}>
                             <Link href="/account/profile" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">Your Profile</Link>
                             <Link href="/account/settings" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-1">Settings</Link>
                             <Link href="/account/out" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-2">Sign out</Link>
@@ -95,15 +97,14 @@ export default function Navbar(){
             </div>
         </div>
 
-        <div className="sm:hidden" id="mobile-menu">
+        <div className="sm:hidden" id="mobile-menu" style={{ display: showMobileMenu ? "none" : "block" }}>
             <div className="space-y-1 px-2 pt-2 pb-3">
-            <a href="#" className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Dashboard</a>
-            <a href="#" className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Team</a>
-            <a href="#" className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projects</a>
-            <a href="#" className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
+                <Link href="/" className={"/"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🏠</Link>
+                <Link href="/categories" className={"/categories"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🗃️</Link>
+                <Link href="/about" className={"/about"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>ℹ️</Link>
+                <Link href="/contact" className={"/contact"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>📞</Link>
             </div>
         </div>
         </nav>
-
     );
 }
