@@ -1,13 +1,13 @@
-## For root folder creation:
+## For root folder creation and options:
+
+```bash
+npx create-next-app@latest
+```
 
 Yes for all options and for name type:
 
 ```bash
 pharm
-```
-
-```bash
-npx create-next-app@latest
 ```
 
 ## Go to created folder with:
