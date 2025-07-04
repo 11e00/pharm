@@ -1,7 +1,10 @@
 ## For root folder creation:
 
-name: pharm
-Yes to all.
+Yes for all options and for name type:
+
+```bash
+pharm
+```
 
 ```bash
 npx create-next-app@latest
