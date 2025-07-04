@@ -1,5 +1,5 @@
 import {createClient} from "@supabase/supabase-js";
-import CategoryList from "@/app/categories/catSelect/catList";
+import CategoryList from "@/app/categories/catList";
 const supabaseUrl=process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey=process.env.NEXT_PUBLIC_SUPABASE_KEY!;
 const supabase=createClient(supabaseUrl, supabaseKey);

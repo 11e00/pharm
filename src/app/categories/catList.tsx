@@ -6,6 +6,7 @@ type Category = {
 };
 
 export default function CategoryList({ categories }: { categories: Category[] }) {
+    
     function LoadCat(cat: Category) {
         console.log('Category clicked:', cat);
         if(cat.category_id=='1'){
