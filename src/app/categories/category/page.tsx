@@ -1,6 +1,6 @@
 import {createClient} from "@supabase/supabase-js";
-import CategoryList from "@/app/categories/catList";
-import ProdList from "@/app/categories/category/prodList";
+import CategoryList from "@/app/categories/clientFunctions";
+import ProdList from "@/app/categories/category/clientFunctions";
 const supabaseUrl=process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey=process.env.NEXT_PUBLIC_SUPABASE_KEY!;
 const supabase=createClient(supabaseUrl, supabaseKey);``
