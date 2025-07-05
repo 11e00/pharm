@@ -34,7 +34,6 @@ export default function Navbar(){
 export default function Navbar(){
     const pathname = usePathname();
     const [query, setQuery] = useState("");
-    const [searchClick, setSearchClick] = useState(false);
     const [showProfileMenu, setProfileShow] = useState(true);
     const [showMobileMenu, setMobileShow] = useState(true);
     return(
@@ -77,12 +76,14 @@ export default function Navbar(){
                 </svg>
                 </button>
                 */}
-                <form className='inline-flex' onSubmit={e => { e.preventDefault(); Search(query);}}>
+                <form className='hidden sm:inline-flex  max-w-auto' onSubmit={e => { e.preventDefault(); Search(query);}}>
                     <input type="text" name="search" placeholder="Search drug" value={query} onChange={(e) => setQuery(e.target.value)} className="max-h-7 self-center block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
-                    <button style={{margin:"10px"}} onClick={() => Search(query)} onMouseDown={()=> setSearchClick((sc) => !sc) } onMouseUp={()=> setSearchClick((sc) => !sc)} type="button" className={searchClick?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"} id="user-menu-button" aria-expanded="false" aria-haspopup="true">🔍</button>
+                    <button style={{margin:"10px"}} onClick={() => Search(query)} type="button" className="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white" id="search-button" aria-expanded="false" aria-haspopup="true">🔍</button>
                 </form>
-                <Link href="/cart" className={"/cart"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🛒</Link>
 
+                <div className='hidden sm:inline-flex max-w-auto'>
+                    <Link href="/cart" className={"/cart"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🛒</Link>
+                </div>
                 <div className="relative ml-3">
                     
                     <div>
@@ -105,11 +106,18 @@ export default function Navbar(){
         </div>
 
         <div style={{ display: showMobileMenu ? "none" : "block" }} className="sm:hidden" id="mobile-menu">
-            <div className="space-y-1 px-2 pt-2 pb-3">
+            <div className="text-center space-y-1 px-2 pt-2 pb-3">
+                <div className="block rounded-md px-3 py-2 text-base font-medium text-gray-300">
+                    <form className='inline-flex sm:hidden max-w-auto' onSubmit={e => { e.preventDefault(); Search(query);}}>
+                        <input type="text" name="search" placeholder="Search drug" value={query} onChange={(e) => setQuery(e.target.value)} className="max-h-7 self-center block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+                    </form>
+                </div>
+
                 <Link href="/" className={"/"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🏠</Link>
                 <Link href="/categories" className={"/categories"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🗃️</Link>
                 <Link href="/about" className={"/about"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>ℹ️</Link>
                 <Link href="/contact" className={"/contact"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>📞</Link>
+                <Link href="/cart" className={"/cart"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🛒</Link>
             </div>
         </div>
         </nav>

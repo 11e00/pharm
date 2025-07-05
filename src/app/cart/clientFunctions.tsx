@@ -279,7 +279,7 @@ const footerNavigation = {
   ],
 }
 
-function classNames(...classes) {
+function classNames(...classes: (string | false | undefined)[]) {
   return classes.filter(Boolean).join(' ')
 }
 
@@ -403,7 +403,7 @@ export default function Example() {
           </DialogPanel>
         </div>
       </Dialog>
-
+    {/*
       <header className="relative bg-white">
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="border-b border-gray-200">
@@ -424,7 +424,7 @@ export default function Example() {
                 </a>
               </div>
 
-              {/* Flyout menus */}
+              //Flyout menus
               <PopoverGroup className="hidden lg:block lg:flex-1 lg:self-stretch">
                 <div className="flex h-full space-x-8">
                   {navigation.categories.map((category) => (
@@ -442,7 +442,7 @@ export default function Example() {
                         transition
                         className="absolute inset-x-0 top-full z-20 w-full bg-white text-sm text-gray-500 transition data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
                       >
-                        {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
+                        // Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow
                         <div aria-hidden="true" className="absolute inset-0 top-1/2 bg-white shadow-sm" />
                         <div className="relative bg-white">
                           <div className="mx-auto max-w-7xl px-8">
@@ -525,7 +525,7 @@ export default function Example() {
                 </div>
               </PopoverGroup>
 
-              {/* Logo */}
+              // Logo 
               <a href="#" className="flex">
                 <span className="sr-only">Your Company</span>
                 <img
@@ -546,19 +546,19 @@ export default function Example() {
                   <span className="sr-only">, change currency</span>
                 </a>
 
-                {/* Search */}
+                // Search 
                 <a href="#" className="ml-6 hidden p-2 text-gray-400 hover:text-gray-500 lg:block">
                   <span className="sr-only">Search</span>
                   <MagnifyingGlassIcon aria-hidden="true" className="size-6" />
                 </a>
 
-                {/* Account */}
+                // 
                 <a href="#" className="p-2 text-gray-400 hover:text-gray-500 lg:ml-4">
                   <span className="sr-only">Account</span>
                   <UserIcon aria-hidden="true" className="size-6" />
                 </a>
 
-                {/* Cart */}
+                // Cart
                 <div className="ml-4 flow-root lg:ml-6">
                   <a href="#" className="group -m-2 flex items-center p-2">
                     <ShoppingBagIcon
@@ -574,7 +574,7 @@ export default function Example() {
           </div>
         </nav>
       </header>
-
+    */}
       <main>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl pt-16">
@@ -652,7 +652,7 @@ export default function Example() {
                             <ClockIcon aria-hidden="true" className="size-5 shrink-0 text-gray-300" />
                           )}
 
-                          <span>{product.inStock ? 'In stock' : `Ships in ${product.leadTime}`}</span>
+                          <span>{product.inStock ? 'In stock' : 'leadTime' in product ? `Ships in ${product.leadTime}` : 'Ships later'}</span>
                         </p>
                       </div>
                     </li>
