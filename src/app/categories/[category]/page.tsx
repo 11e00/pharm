@@ -1,31 +1,34 @@
 import {createClient} from "@supabase/supabase-js";
 import CategoryList from "@/app/categories/clientFunctions";
-import ProdList from "@/app/categories/category/clientFunctions";
+import ProdList from "@/app/categories/[category]/clientFunctions";
 const supabaseUrl=process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey=process.env.NEXT_PUBLIC_SUPABASE_KEY!;
 const supabase=createClient(supabaseUrl, supabaseKey);``
 
-export default async function productsCategories() {
-    let product_categories = [];
+export default async function CategoryPage(/*{url}:{url:{category:string}}*/) {
+    //const categoryName=url.category;
+    //console.log(categoryName);
+    let category = [];
 
     try{
-        let { data:product_category, error:apiError }=await supabase
-            .from('Drugs')
+        let { data:productArr, error:apiError }=await supabase
+            .from('Category')
             .select('*');
-        console.log(product_category);
+        console.log(productArr);
 
         if(apiError) throw apiError;
-        product_categories=product_category ?? [];
+        category=productArr ?? [];
     }catch(err){
         //network error
         console.error(err);
     }
 
+    
 
     return (
         <div className="categories">
             <h1>Categories fueh</h1>
-            <ProdList product_categories={product_categories ?? []} />
+            {/*<ProdList product_categories={category ?? []} />*/}
         </div>
     );
 }
