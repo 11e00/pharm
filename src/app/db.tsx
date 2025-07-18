@@ -44,3 +44,6 @@ export async function Search(text: string){
     }
     redirect('/categories');
 }
+
+export async function InsertProduct(barcode: string){
+}

@@ -105,7 +105,7 @@ export default function Navbar(){
             </div>
         </div>
 
-        <div className={showMobileMenu?"block sm:hidden":"hidden"} id="mobile-menu">
+        <div className={showMobileMenu?"hidden":"block sm:hidden"} id="mobile-menu">
             <div className="text-center space-y-1 px-2 pt-2 pb-3">
                 <div className="block rounded-md px-3 py-2 text-base font-medium text-gray-300">
                     <form className='inline-flex sm:hidden max-w-auto' onSubmit={e => { e.preventDefault(); Search(query);}}>
