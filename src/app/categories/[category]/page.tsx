@@ -5,14 +5,14 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-type Products = {
-    drug_id: string;
-    price: string;
-    name: string;
-    stock: string;
-    visible: string;
-    category_name: string;
-};
+  type Products = {
+      drug_id: string;
+      price: string;
+      name: string;
+      stock: string;
+      visible: string;
+      category_name: string;
+  };
 
 //TODO Make "All-items" return all items
 export default async function CategoryPage({ params }: { params: { category: string } }) {
