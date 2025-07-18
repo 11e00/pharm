@@ -10,10 +10,9 @@ type Products = {
 };
 
 export default function ProdList({ product_categories }: { product_categories: Products[] }) {
-
     function LoadCatProd(prod: Products) {
         console.log('Category selected:', prod);
-        if(prod.drug_id=='1'){
+        if (prod.drug_id == '1') {
 
         }
     }
@@ -21,7 +20,7 @@ export default function ProdList({ product_categories }: { product_categories: P
     return (
         <div className="categories">
             {product_categories.map((prod) => (
-                <div key={prod.drug_id} onClick={() => LoadCatProd(prod)} style={{ cursor: 'pointer'}}>
+                <div key={prod.drug_id} onClick={() => LoadCatProd(prod)} style={{ cursor: 'pointer' }}>
                     [ {prod.name} ]
                 </div>
             ))}
