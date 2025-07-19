@@ -8,8 +8,7 @@ export default async function Categories() {
     let categories:any = [];
   try{
     let { data:categoryArr, error:apiError }=await supabase.from('Category').select('*').order('category_id', { ascending: true });
-    console.log(categoryArr);
-
+    
     if(apiError) throw apiError;
     categories=categoryArr ?? [];
   }catch(err){

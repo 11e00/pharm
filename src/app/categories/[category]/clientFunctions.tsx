@@ -53,12 +53,12 @@ export default function ProdList({ product_categories }: { product_categories: P
 
 ////TODO filters
 // should actually be -> export default function CategoryLoad({products,filters={}}:{products:any,filters?:any}) {
-export default function LoadProducts({currentCategory,products}:{currentCategory:string,products:any}) {
+export default function LoadProducts({currentCategory,products,images}:{currentCategory:string,products:any,images:any}) {
     
     let filters:any=[]; //delete after right implementation
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
-
+    console.log(products);
     return (
         <div className="bg-white">
         <div>
@@ -233,14 +233,14 @@ export default function LoadProducts({currentCategory,products}:{currentCategory
                 </h2>
 
                 <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
-                    {products?.map((product:any) => (
+                    {products?.map((product:any,i:any) => (
                     <div
                         key={product.drug_id}
                         className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
                     >
                         <img
                         alt={"product "+product.drug_id}
-                        src={product.imageSrc}
+                        src={images[i]}
                         className="aspect-3/4 bg-gray-200 object-cover group-hover:opacity-75 sm:h-96"
                         />
                         <div className="flex flex-1 flex-col space-y-2 p-4">

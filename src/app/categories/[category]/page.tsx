@@ -50,7 +50,7 @@ export default async function CategoryPage({ params }: { params: { category: str
             try {
                 const { data: productArr, error: apiError } = await supabase
                     .from('Drug')
-                    .select('drug_id, name, price, stock, visible, Category!inner(category_id, category_name)');
+                    .select('drug_id, name, price, thumbnail_id, stock, visible, Category!inner(category_id, category_name)');
 
                 if (apiError) throw apiError;
                 products=productArr ?? [];
@@ -64,7 +64,7 @@ export default async function CategoryPage({ params }: { params: { category: str
             try {
                 const { data: productArr, error: apiError } = await supabase
                     .from('Drug')
-                    .select('drug_id, name, price, stock, visible, Category!inner(category_id, category_name)')
+                    .select('drug_id, name, price, thumbnail_id, stock, visible, Category!inner(category_id, category_name)')
                     .eq('category_id', categoryID);
 
                 if (apiError) throw apiError;
@@ -75,7 +75,23 @@ export default async function CategoryPage({ params }: { params: { category: str
             }
             break;
     }
+
+    let images:any=[];
+    for(let i=0;i<products.length;i++){
+        try {
+            const { data: imgArr, error: apiError } = await supabase
+                .from('Images')
+                .select('*')
+                .eq('img_id', products[i].thumbnail_id);
+
+            if (apiError) throw apiError;
+            images[i]=imgArr[0]?.imgSrc ?? [];
+        } catch (err) {
+            console.error('Error fetching products:', err);
+        }
+    }
+
     return (
-        <LoadProducts currentCategory={urlCategoryName} products={products} />
+        <LoadProducts currentCategory={urlCategoryName} products={products} images={images}/>
     );
 }

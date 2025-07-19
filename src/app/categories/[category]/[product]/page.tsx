@@ -11,7 +11,8 @@ export default async function ProductPage({params}:{params:{product:string}}) {
     const urlProductID=params.product;
     let productID:any = [];
     let product = [];
-    
+    let images:any=[];
+
 
     try {
         const { data: productIDData, error: apiError } = await supabase
@@ -42,13 +43,25 @@ export default async function ProductPage({params}:{params:{product:string}}) {
         console.error(err);
     }
 
+    try {
+        const { data: imgArr, error: apiError } = await supabase
+            .from('Images')
+            .select('*')
+            .eq('drug_id', productID);
+
+        if (apiError) throw apiError;
+        images=imgArr ?? [];
+    } catch (err) {
+        console.error('Error fetching products:', err);
+    }
+
     //const relatedProducts = await
     //const pages = await 
 
     return (
         <div className="product">
             <LoadProduct       
-                product={product}
+                product={product} images={images}
                 //relatedProducts={relatedProducts}
                 //pages={pages}
                 />

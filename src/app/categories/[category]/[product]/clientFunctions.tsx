@@ -35,7 +35,7 @@ function classNames(...classes:(string | false | undefined)[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function LoadProduct({product}:{product:any}) {
+export default function LoadProduct({product,images}:{product:any,images:any}) {
   const [open, setOpen] = useState(false)
     //let relatedProducts:any=[];
     //let pages:any=[];
@@ -101,14 +101,13 @@ export default function LoadProduct({product}:{product:any}) {
               {/* Image selector */}
               <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
                 <TabList className="grid grid-cols-4 gap-6">
-                  {product?.images?.map((image:any) => (
+                  {images?.map((image:any) => (
                     <Tab
-                      key={image.id}
+                      key={image.img_id}
                       className="group relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium text-gray-900 uppercase hover:bg-gray-50 focus:ring-3 focus:ring-indigo-500/50 focus:ring-offset-4 focus:outline-hidden"
                     >
-                      <span className="sr-only">{image.name}</span>
                       <span className="absolute inset-0 overflow-hidden rounded-md">
-                        <img alt="" src={image.src} className="size-full object-cover" />
+                        <img alt="" src={image.imgSrc} className="size-full object-cover" />
                       </span>
                       <span
                         aria-hidden="true"
@@ -120,9 +119,9 @@ export default function LoadProduct({product}:{product:any}) {
               </div>
 
               <TabPanels>
-                {product?.images?.map((image:any) => (
-                  <TabPanel key={image.id}>
-                    <img alt={image.alt} src={image.src} className="aspect-square w-full object-cover sm:rounded-lg" />
+                {images?.map((image:any) => (
+                  <TabPanel key={image.img_id}>
+                    <img alt="product" src={image.imgSrc} className="aspect-square w-full object-cover sm:rounded-lg" />
                   </TabPanel>
                 ))}
               </TabPanels>
@@ -197,7 +196,7 @@ export default function LoadProduct({product}:{product:any}) {
                     type="submit"
                     className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-hidden sm:w-full"
                   >
-                    Add to bag
+                    Add to cart
                   </button>
 
                   <button

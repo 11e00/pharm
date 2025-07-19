@@ -10,16 +10,16 @@ export default function LoadCategories({categories}:{categories:any}){
             Each season, we collaborate with world-class designers to create a collection inspired by the natural world.
             </p>
 
-            <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:space-y-0 lg:gap-x-8">
+            <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:space-y-12 lg:gap-x-8">
             {categories.map((category:any) => (
                 <Link key={category.category_id} href={"/categories/"+category.category_name} className="group block">
                 <img
                     alt="item"
-                    src="https://www.premier-health.co.uk/images/pharmacy/Own_Label_Market_Pharmacy_Range.png"
+                    src={category.category_image}
                     className="aspect-3/2 w-full rounded-lg object-cover group-hover:opacity-75 lg:aspect-5/6"
                 />
                 <h3 className="mt-4 text-base font-semibold text-gray-900">{category.category_name.replace("-"," ")}</h3>
-                <p className="mt-2 text-sm text-gray-500">Item Description</p>
+                <p className="mt-2 text-sm text-gray-500">{category.category_description}</p>
                 </Link>
             ))}
             </div>
