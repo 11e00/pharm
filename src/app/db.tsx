@@ -30,19 +30,38 @@ export async function Name(customerID:number){
 }
 
 export async function Search(text: string){
-    let items=null;
+    let items:any=[];
+    let categoryName:any=[];
     try{
-        let { data:items, error:apiError }=await supabase.from('Drug').select('*').ilike('name',"%"+text+"%");
-        console.log(items);
-
-        if(apiError)
-            //database error
-            console.error(apiError);
+        let { data:itemsData, error:apiError }=await supabase.from('Drug').select('*').ilike('name',"%"+text+"%");
+        
+        if(apiError) throw apiError;
+        items=itemsData ?? [];
     }catch(err){
         //network error
         console.error(err);
     }
-    redirect('/categories');
+
+    if(items.length==1){
+        try {
+            const { data: categoryNameData, error: apiError } = await supabase
+                .from('Category')
+                .select('category_name')
+                .eq('category_id', items[0].category_id);
+
+            if (apiError) throw apiError;
+            categoryName=categoryNameData[0].category_name ?? [];
+        } catch (err) {
+            //network error
+            console.error(err);
+        }
+
+        redirect("/categories/"+categoryName+"/"+items[0].drug_id);
+    }
+    else{
+        console.log(items);
+        redirect("/categories");
+    }
 }
 
 export async function InsertProduct(barcode: string){
