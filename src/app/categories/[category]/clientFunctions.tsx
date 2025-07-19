@@ -50,8 +50,11 @@ export default function ProdList({ product_categories }: { product_categories: P
     );
 }
 */
-// should be export default function CategoryLoad({products,filters={}}:{products:any,filters?:any}) {
+
+////TODO filters
+// should actually be -> export default function CategoryLoad({products,filters={}}:{products:any,filters?:any}) {
 export default function LoadProducts({currentCategory,products}:{currentCategory:string,products:any}) {
+    
     let filters:any=[]; //delete after right implementation
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)

@@ -7,7 +7,6 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-//TODO Make "All-items" return all items
 export default async function CategoryPage({ params }: { params: { category: string } }) {
     const urlCategoryName = params.category;
     let categoryName:any = [];
@@ -51,7 +50,7 @@ export default async function CategoryPage({ params }: { params: { category: str
             try {
                 const { data: productArr, error: apiError } = await supabase
                     .from('Drug')
-                    .select('drug_id, name, price, stock, visible, Category!inner(category_name, category_id)');
+                    .select('drug_id, name, price, stock, visible, Category!inner(category_id, category_name)');
 
                 if (apiError) throw apiError;
                 products=productArr ?? [];
@@ -65,12 +64,12 @@ export default async function CategoryPage({ params }: { params: { category: str
             try {
                 const { data: productArr, error: apiError } = await supabase
                     .from('Drug')
-                    .select('drug_id, name, price, stock, visible, Category!inner(category_name, category_id)')
-                    .eq('category_name', urlCategoryName);
+                    .select('drug_id, name, price, stock, visible, Category!inner(category_id, category_name)')
+                    .eq('category_id', categoryID);
 
                 if (apiError) throw apiError;
                 products=productArr ?? [];
-
+                
             } catch (err) {
                 console.error('Error fetching products:', err);
             }
