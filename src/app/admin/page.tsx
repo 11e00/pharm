@@ -1,11 +1,9 @@
-import QRScanner,{selectMode} from './clientFunctions';
+import QRScanner from './clientFunctions';
 
 export default function ScanPage() {
 
-    
   return (
     <div>
-        <selectMode/>
         <QRScanner/>
     </div>
   );
