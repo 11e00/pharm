@@ -30,15 +30,18 @@ import {
 } from '@heroicons/react/24/outline'
 
 import { StarIcon } from '@heroicons/react/20/solid'
+import { Drug, Images } from '@/app/db'
 
 function classNames(...classes:(string | false | undefined)[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function LoadProduct({product,images}:{product:any,images:any}) {
+export default function LoadProduct({product,images}:{product:Drug[],images:Images[]}) {
   const [open, setOpen] = useState(false)
     //let relatedProducts:any=[];
     //let pages:any=[];
+    let details:any;
+    let colors:any;
   return (
 
     <div className="bg-white">
@@ -101,7 +104,7 @@ export default function LoadProduct({product,images}:{product:any,images:any}) {
               {/* Image selector */}
               <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
                 <TabList className="grid grid-cols-4 gap-6">
-                  {images?.map((image:any) => (
+                  {images?.map((image:Images) => (
                     <Tab
                       key={image.img_id}
                       className="group relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium text-gray-900 uppercase hover:bg-gray-50 focus:ring-3 focus:ring-indigo-500/50 focus:ring-offset-4 focus:outline-hidden"
@@ -119,7 +122,7 @@ export default function LoadProduct({product,images}:{product:any,images:any}) {
               </div>
 
               <TabPanels>
-                {images?.map((image:any) => (
+                {images?.map((image:Images) => (
                   <TabPanel key={image.img_id}>
                     <img alt="product" src={image.imgSrc} className="aspect-square w-full object-cover sm:rounded-lg" />
                   </TabPanel>
@@ -160,7 +163,7 @@ export default function LoadProduct({product,images}:{product:any,images:any}) {
                 <h3 className="sr-only">Description</h3>
 
                 <div
-                  dangerouslySetInnerHTML={{ __html: product.description }}
+                  dangerouslySetInnerHTML={{ __html: product[0].description ?? "No Desc"}}
                   className="space-y-6 text-base text-gray-700"
                 />
               </div>
@@ -172,11 +175,11 @@ export default function LoadProduct({product,images}:{product:any,images:any}) {
 
                   <fieldset aria-label="Choose a color" className="mt-2">
                     <div className="flex items-center gap-x-3">
-                      {product?.colors?.map((color:any) => (
+                      {colors?.map((color:any) => (
                         <div key={color.id} className="flex rounded-full outline -outline-offset-1 outline-black/10">
                           <input
                             defaultValue={color.id}
-                            defaultChecked={color === product.colors[0]}
+                            defaultChecked={color === colors[0]}
                             name="color"
                             type="radio"
                             aria-label={color.name}
@@ -215,7 +218,7 @@ export default function LoadProduct({product,images}:{product:any,images:any}) {
                 </h2>
 
                 <div className="divide-y divide-gray-200 border-t border-gray-200">
-                  {product?.details?.map((detail:any) => (
+                  {details?.map((detail:any) => (
                     <Disclosure key={detail.name} as="div">
                       <h3>
                         <DisclosureButton className="group relative flex w-full items-center justify-between py-6 text-left">

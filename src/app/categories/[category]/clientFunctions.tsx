@@ -20,6 +20,7 @@ import {
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PlusIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
+import { Drug, Images } from '@/app/db';
 
 /*
 type Products = {
@@ -53,7 +54,7 @@ export default function ProdList({ product_categories }: { product_categories: P
 
 ////TODO filters
 // should actually be -> export default function CategoryLoad({products,filters={}}:{products:any,filters?:any}) {
-export default function LoadProducts({currentCategory,products,images}:{currentCategory:string,products:any,images:any}) {
+export default function LoadProducts({currentCategory,products,images}:{currentCategory:string,products:Drug[],images:string[]}) {
     
     let filters:any=[]; //delete after right implementation
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -233,7 +234,7 @@ export default function LoadProducts({currentCategory,products,images}:{currentC
                 </h2>
 
                 <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
-                    {products?.map((product:any,i:any) => (
+                    {products?.map((product:Drug,i:number) => (
                     <div
                         key={product.drug_id}
                         className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
