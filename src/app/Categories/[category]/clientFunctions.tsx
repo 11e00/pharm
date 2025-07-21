@@ -59,7 +59,6 @@ export default function LoadProducts({currentCategory,products,images}:{currentC
     let filters:any=[]; //delete after right implementation
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
-    console.log(products);
     return (
         <div className="bg-white">
         <div>

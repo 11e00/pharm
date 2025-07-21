@@ -59,9 +59,9 @@ export default function Navbar(){
                 <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
                     <Link href="/" className={"/"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🏠</Link>
-                    <Link href="/categories" className={"/categories"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🗃️</Link>
-                    <Link href="/about" className={"/about"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>ℹ️</Link>
-                    <Link href="/contact" className={"/contact"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>📞</Link>
+                    <Link href="/Categories" className={"/categories"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🗃️</Link>
+                    <Link href="/About" className={"/about"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>ℹ️</Link>
+                    <Link href="/Contact" className={"/contact"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>📞</Link>
                 </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@ export default function Navbar(){
                 </form>
 
                 <div className='hidden sm:inline-flex max-w-auto'>
-                    <Link href="/cart" className={"/cart"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🛒</Link>
+                    <Link href="/Cart" className={"/cart"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🛒</Link>
                 </div>
                 <div className="relative ml-3">
                     
@@ -95,9 +95,9 @@ export default function Navbar(){
                     </div>
                     
                         <div style={{ display: showProfileMenu ? "none" : "block" }} id="dropdown" className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex={-1}>
-                            <Link href="/account/profile" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">Your Profile</Link>
-                            <Link href="/account/settings" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-1">Settings</Link>
-                            <Link href="/account/out" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-2">Sign out</Link>
+                            <Link href="/Account/Profile" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">Your Profile</Link>
+                            <Link href="/Account/Settings" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-1">Settings</Link>
+                            <Link href="/Account/SignOut" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-2">Sign out</Link>
                         </div>
       
                 </div>
@@ -114,10 +114,10 @@ export default function Navbar(){
                 </div>
 
                 <Link href="/" className={"/"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🏠</Link>
-                <Link href="/categories" className={"/categories"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🗃️</Link>
-                <Link href="/about" className={"/about"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>ℹ️</Link>
-                <Link href="/contact" className={"/contact"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>📞</Link>
-                <Link href="/cart" className={"/cart"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🛒</Link>
+                <Link href="/Categories" className={"/categories"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🗃️</Link>
+                <Link href="/About" className={"/about"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>ℹ️</Link>
+                <Link href="/Contact" className={"/contact"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>📞</Link>
+                <Link href="/Cart" className={"/cart"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🛒</Link>
             </div>
         </div>
         </nav>

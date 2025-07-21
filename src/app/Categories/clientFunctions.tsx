@@ -13,7 +13,7 @@ export default function LoadCategories({categories}:{categories:Category[]}){
 
             <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:space-y-12 lg:gap-x-8">
             {categories.map((category:Category) => (
-                <Link key={category.category_id} href={"/categories/"+category.category_name} className="group block">
+                <Link key={category.category_id} href={"/Categories/"+category.category_name} className="group block">
                 <img
                     alt="item"
                     src={category.category_image}

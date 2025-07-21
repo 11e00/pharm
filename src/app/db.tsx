@@ -97,11 +97,11 @@ export async function Search(text: string){
     if(items.length==1){
 
         let categoryName:string=(await API(supabase.from('Category').select('category_name').eq('category_id', items[0].category_id)))[0].category_name ?? [];
-        redirect("/categories/"+categoryName+"/"+items[0].drug_id);
+        redirect("/Categories/"+categoryName+"/"+items[0].drug_id);
     }
     else{
         console.log(items);
-        redirect("/categories");
+        redirect("/Categories");
     }
 }
 
