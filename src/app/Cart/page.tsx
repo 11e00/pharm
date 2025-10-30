@@ -2,7 +2,7 @@ import Link from 'next/link';
 import '../globals.css'
 import Example from './clientFunctions';
 
-export default async function Cart() {
+export default async function cart() {
   return (
     <Example/>
   );
