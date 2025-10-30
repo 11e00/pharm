@@ -2,7 +2,7 @@
 'use client'
 import React, { useState } from 'react';
 import { Scanner } from '@yudiel/react-qr-scanner';
-import { InsertProduct } from '../db';
+import { InsertProduct } from '@/app/db';
 
 
 

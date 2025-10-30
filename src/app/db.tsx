@@ -7,7 +7,7 @@ const supabaseUrl=process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey=process.env.NEXT_PUBLIC_SUPABASE_KEY!;
 export const supabase=createClient(supabaseUrl, supabaseKey);
 
-export type Customer = {
+export type customer = {
   customer_id?: number;
   name?: string;
   surname?: string;
@@ -17,8 +17,8 @@ export type Customer = {
   password?: string;
 };
 
-export type Drug = {
-  drug_id?: number;
+export type item = {
+  item_id?: number;
   price?: number;
   stock?: number;
   name?: string;
@@ -26,10 +26,10 @@ export type Drug = {
   category_id?: number;
   barcode?: string;
   thumbnail_id?: number;
-  description?:string
+  description?:string;
 };
 
-export type Orders = {
+export type orders = {
   order_id?: number;
   customer_id?: number;
   order_time?: string;
@@ -37,23 +37,23 @@ export type Orders = {
   status?: string;
 };
 
-export type Cart = {
+export type cart = {
   cart_item_id?: number;
   customer_id?: number;
-  drug_id?: number;
+  item_id?: number;
   amount_added?: number;
 };
 
-export type OrderedDrug = {
-  ordered_drug_id?: number;
+export type ordered_items = {
+  ordered_item_id?: number;
   order_id?: number;
-  drug_id?: number;
+  item_id?: number;
   quantity?: number;
   price?: number;
   total?: number;
 };
 
-export type Category = {
+export type category = {
   category_id?: number;
   category_name?: string;
   total_items?: number;
@@ -61,10 +61,10 @@ export type Category = {
   category_description?: string;
 };
 
-export type Images = {
+export type item_images = {
   img_id?: number;
   imgSrc?: string;
-  drug_id?: number;
+  item_id?: number;
 };
 
 
@@ -81,10 +81,10 @@ export async function API(call:any) {
     }
 }
 
-export async function Name(customerID:number){
+export async function Name(customerInstanceID:number){
 
     //patenta
-    let name:string=JSON.stringify((await API(supabase.from('Customer').select('*').eq('customer_id',customerID)))?.[0].name).slice(1,-1);
+    let name:string=JSON.stringify((await API(supabase.from('customer').select('*').eq('customer_instance_id',customerInstanceID)))?.[0].name).slice(1,-1);
     //end of patenta
 
     return name;
@@ -92,18 +92,33 @@ export async function Name(customerID:number){
 
 export async function Search(text: string){
 
-    let items:Drug[]=await API(supabase.from('Drug').select('*').ilike('name',"%"+text+"%")) ?? [];
+    let items:item[]=await API(supabase.from('item').select('*').ilike('name',"%"+text+"%")) ?? [];
 
     if(items.length==1){
 
-        let categoryName:string=(await API(supabase.from('Category').select('category_name').eq('category_id', items[0].category_id)))[0].category_name ?? [];
-        redirect("/Categories/"+categoryName+"/"+items[0].drug_id);
+        let categoryName:string=(await API(supabase.from('category').select('category_name').eq('category_id', items[0].category_id)))[0].category_name ?? [];
+        redirect("/categories/"+categoryName+"/"+items[0].item_id);
     }
     else{
         console.log(items);
-        redirect("/Categories");
+        redirect("/categories");
     }
 }
 
 export async function InsertProduct(barcode: string){
+}
+
+export async function getUser() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  return user;
+}
+
+// Logout action
+export async function logout() {
+  await supabase.auth.signOut();
+
+  redirect("/logout");
 }

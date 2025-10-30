@@ -1,125 +1,171 @@
 "use client";
 
-import Link from 'next/link';
-import {Search} from "./db";
-import React, { useState } from "react";
-import { usePathname } from 'next/navigation';
-import './globals.css'
+import React, { useState,useEffect } from "react";
+import { usePathname,useRouter } from "next/navigation";
+import { FloatingDock } from "@/components/ui/floating-dock";
+import {
+  IconHome,
+  IconArchive,
+  IconInfoCircle,
+  IconPhone,
+  IconShoppingCart,
+  IconUserCircle,
+  IconSearch,
+} from "@tabler/icons-react";
+import { Search } from "@/app/db"; // ✅ your existing Search function
 
-/*
-previous barebone
-export default function Navbar(){
-    return(
-        <nav className="display:'inline-block">
+import {
+  MotionValue,
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  AnimatePresence
+} from "motion/react";
 
-            <div style={{justifySelf:"left"}}>
-                <Link href="/">🏠 &nbsp;</Link>
-            </div>
-            <div style={{justifySelf:"center"}}>
-                <Link href="/categories">Categories &nbsp;</Link>
-                <Link href="/about">About &nbsp;</Link>
-                <Link href="/contact">Contact &nbsp;</Link>
-            </div>
-            <div style={{justifySelf:"right"}}>
-                <Link href="/account">🗣️ &nbsp;</Link>
-                <Link href="/cart">🛒 &nbsp;</Link>
-            </div>
-            <hr/>
-            <br/>
-        </nav>
-    );
-}
-*/
 
-export default function Navbar(){
-    const pathname = usePathname();
-    const [query, setQuery] = useState("");
-    const [showProfileMenu, setProfileShow] = useState(true);
-    const [showMobileMenu, setMobileShow] = useState(true);
-    return(
-        <nav className="bg-gray-800 sticky top-0 z-10">
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div className="relative flex h-16 items-center justify-between">
-            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                <button onClick={() => setMobileShow((ms) => !ms)} type="button" className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset" aria-controls="mobile-menu" aria-expanded="false">
-                <span className="absolute -inset-0.5"></span>
-                <span className="sr-only">Open main menu</span>
-                <svg className="block size-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
-                <svg className="hidden size-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                </svg>
-                </button>
-            </div>
-            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex shrink-0 items-center">
-                <Link href="/"><img className="h-8 w-auto" src="/logo.jpg" alt="Your Company" style={{width: "20vw", maxWidth: "45px"}}/></Link> 
-                </div>
-                <div className="hidden sm:ml-6 sm:block">
-                <div className="flex space-x-4">
-                    <Link href="/" className={"/"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🏠</Link>
-                    <Link href="/Categories" className={"/categories"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🗃️</Link>
-                    <Link href="/About" className={"/about"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>ℹ️</Link>
-                    <Link href="/Contact" className={"/contact"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>📞</Link>
-                </div>
-                </div>
-            </div>
-            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {/* notification button
-                
-                <button type="button" className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
-                <span className="absolute -inset-1.5"></span>
-                <span className="sr-only">View notifications</span>
-                <svg className="size-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-                </svg>
-                </button>
-                */}
-                <form className='hidden sm:inline-flex  max-w-auto' onSubmit={e => { e.preventDefault(); Search(query);}}>
-                    <input type="text" name="search" placeholder="Search drug" value={query} onChange={(e) => setQuery(e.target.value)} className="max-h-7 self-center block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
-                    <button style={{margin:"10px"}} onClick={() => Search(query)} type="button" className="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white" id="search-button" aria-expanded="false" aria-haspopup="true">🔍</button>
-                </form>
+export default function Navbar() {
+  const pathname = usePathname();
+    const router = useRouter();
 
-                <div className='hidden sm:inline-flex max-w-auto'>
-                    <Link href="/Cart" className={"/cart"==pathname?"rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white":"rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🛒</Link>
-                </div>
-                <div className="relative ml-3">
-                    
-                    <div>
-                        <button onClick={() => setProfileShow((ps) => !ps)} type="button" className="relative flex rounded-full bg-gray-800 text-sm focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                        <span className="absolute -inset-1.5"></span>
-                        <span className="sr-only">Open user menu</span>
-                        <img className="size-8 rounded-full" src="https://media.tenor.com/UtA_q1IGAQQAAAAM/asian-among.gif" alt="" />
-                        </button>
-                    </div>
-                    
-                        <div style={{ display: showProfileMenu ? "none" : "block" }} id="dropdown" className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex={-1}>
-                            <Link href="/Account/Profile" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">Your Profile</Link>
-                            <Link href="/Account/Settings" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-1">Settings</Link>
-                            <Link href="/Account/SignOut" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-2">Sign out</Link>
-                        </div>
-      
-                </div>
-            </div>
-            </div>
-        </div>
+const handleSearch = (q: string) => {
+  setShowSearch(false); // triggers AnimatePresence exit animation
+  setTimeout(() => Search(q), 200); // delay the redirect slightly to see animation
+};
+  const [query, setQuery] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
+  useEffect(() => {
+    setShowSearch(false);
+  }, [pathname]);
+  const links = [
+    {
+      title: "Home",
+      href: "/",
+      icon: (
+        <IconHome
+          className={
+            "h-full w-full " +
+            (pathname === "/"
+              ? "text-green-500"
+              : "text-neutral-500 dark:text-neutral-300")
+          }
+        />
+      ),
+    },
+    {
+      title: "Categories",
+      href: "/categories",
+      icon: (
+        <IconArchive
+          className={
+            "h-full w-full " +
+            (pathname.startsWith("/categories")
+              ? "text-green-500"
+              : "text-neutral-500 dark:text-neutral-300")
+          }
+        />
+      ),
+    },
+    {
+      title: "Cart",
+      href: "/cart",
+      icon: (
+        <IconShoppingCart
+          className={
+            "h-full w-full " +
+            (pathname === "/cart"
+              ? "text-green-500"
+              : "text-neutral-500 dark:text-neutral-300")
+          }
+        />
+      ),
+    },
+    {
+      title: "Account",
+      href: "/account/profile",
+      icon: (
+        <IconUserCircle
+          className={
+            "h-full w-full " +
+            (pathname.startsWith("/account")
+              ? "text-green-500"
+              : "text-neutral-500 dark:text-neutral-300")
+          }
+        />
+      ),
+    },
+    {
+    title: "Search",
+    href: "#", // stays here so it's clickable
+    icon: (
+        <IconSearch
+        className={
+            "h-full w-full cursor-pointer " +
+            (showSearch
+            ? "text-green-500" // highlight when active
+            : "text-neutral-500 dark:text-neutral-300")
+        }
+        onClick={(e) => {
+            e.preventDefault(); // prevent "#" jump
+            setShowSearch((prev) => !prev);
+        }}
+        />
+    ),
+    }
+  ];
 
-        <div className={showMobileMenu?"hidden":"block sm:hidden"} id="mobile-menu">
-            <div className="text-center space-y-1 px-2 pt-2 pb-3">
-                <div className="block rounded-md px-3 py-2 text-base font-medium text-gray-300">
-                    <form className='inline-flex sm:hidden max-w-auto' onSubmit={e => { e.preventDefault(); Search(query);}}>
-                        <input type="text" name="search" placeholder="Search drug" value={query} onChange={(e) => setQuery(e.target.value)} className="max-h-7 self-center block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
-                    </form>
-                </div>
+  return (
+    <div className="fixed inset-x-0 bottom-2 z-20 flex flex-col items-center justify-center">
+      <div className="relative flex flex-col items-center">
+        {/* search dock (pops above) */}
+        <AnimatePresence>
+          {showSearch && (
+            <motion.div
+              key="searchDock"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.25 }}
+              className="absolute bottom-full mb-5 w-full flex justify-center"
+            >
+                    <div className="flex w-full max-w-lg items-center justify-center rounded-2xl p-0.5 dark:bg-neutral-800">
 
-                <Link href="/" className={"/"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🏠</Link>
-                <Link href="/Categories" className={"/categories"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🗃️</Link>
-                <Link href="/About" className={"/about"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>ℹ️</Link>
-                <Link href="/Contact" className={"/contact"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>📞</Link>
-                <Link href="/Cart" className={"/cart"==pathname?"block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white":"block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"}>🛒</Link>
-            </div>
-        </div>
-        </nav>
-    );
+      <form
+        className="flex w-full max-w-lg items-center gap-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSearch(query);
+        }}
+      >
+        <input
+          type="text"
+          name="search"
+          placeholder="Search item"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+  className="flex-1 
+    border-b-3 border-green-500 
+    bg-transparent 
+    text-center
+    text-gray-900
+    text-shadow-xs
+    placeholder-gray-800 
+    bg-radial-[at_50%_100%] from-green-300 to-transparent to-75%    dark:from-black dark:to-transparent
+    focus:outline-none focus:border-black
+    dark:text-white dark:border-white dark:placeholder-white
+  "        />
+        
+
+        
+      </form>
+      </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* main nav */}
+        <FloatingDock items={links} />
+      </div>
+    </div>
+  );
 }
