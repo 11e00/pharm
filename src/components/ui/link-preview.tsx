@@ -1,5 +1,6 @@
 "use client";
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
+import Image from "next/image";
 
 import { encode } from "qss";
 import React from "react";
@@ -66,7 +67,8 @@ export const LinkPreview = ({
   const x = useMotionValue(0);
 
   const translateX = useSpring(x, springConfig);
-
+  
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
   const handleMouseMove = (event: any) => {
     const targetRect = event.target.getBoundingClientRect();
     const eventOffsetX = event.clientX - targetRect.left;

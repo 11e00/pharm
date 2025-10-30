@@ -40,8 +40,12 @@ export default function LoadProduct({product,item_images}:{product:item[],item_i
   const [open, setOpen] = useState(false)
     //let relatedProducts:any=[];
     //let pages:any=[];
-    let details:any;
-    let colors:any;
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+    //let details:any;
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+    //let colors:any;
   return (
 
     <div className="bg-white">
@@ -175,6 +179,9 @@ export default function LoadProduct({product,item_images}:{product:item[],item_i
 
                   <fieldset aria-label="Choose a color" className="mt-2">
                     <div className="flex items-center gap-x-3">
+                    {/*
+
+                    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
                       {colors?.map((color:any) => (
                         <div key={color.id} className="flex rounded-full outline -outline-offset-1 outline-black/10">
                           <input
@@ -190,6 +197,7 @@ export default function LoadProduct({product,item_images}:{product:item[],item_i
                           />
                         </div>
                       ))}
+                    */}
                     </div>
                   </fieldset>
                 </div>
@@ -218,6 +226,9 @@ export default function LoadProduct({product,item_images}:{product:item[],item_i
                 </h2>
 
                 <div className="divide-y divide-gray-200 border-t border-gray-200">
+                {/*
+
+                // eslint-disable-next-line @typescript-eslint/no-empty-object-type
                   {details?.map((detail:any) => (
                     <Disclosure key={detail.name} as="div">
                       <h3>
@@ -242,6 +253,8 @@ export default function LoadProduct({product,item_images}:{product:item[],item_i
                           role="list"
                           className="list-disc space-y-1 pl-5 text-sm/6 text-gray-700 marker:text-gray-300"
                         >
+                          
+                          // eslint-disable-next-line @typescript-eslint/no-empty-object-type
                           {detail?.items?.map((item:any) => (
                             <li key={item} className="pl-2">
                               {item}
@@ -251,6 +264,7 @@ export default function LoadProduct({product,item_images}:{product:item[],item_i
                       </DisclosurePanel>
                     </Disclosure>
                   ))}
+                */}
                 </div>
               </section>
             </div>

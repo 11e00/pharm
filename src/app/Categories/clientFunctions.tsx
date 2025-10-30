@@ -1,6 +1,7 @@
 'use client';
 import {LinkPreview} from '@/components/ui/link-preview';
 import { category } from '@/app/db';
+import Image from "next/image";
 
 export default function LoadCategories({categories}:{categories:category[]}){
     return(
@@ -16,7 +17,7 @@ export default function LoadCategories({categories}:{categories:category[]}){
                 <LinkPreview key={category.category_id} url={"/categories/"+category.category_name} className="group block">
                 <img
                     alt="item"
-                    src={category.category_image}
+                    src={category.category_image!}
                     className="aspect-3/2 w-full rounded-lg object-cover group-hover:opacity-75 lg:aspect-5/6"
                 />
                 <h3 className="mt-4 text-base font-semibold text-gray-900">{category?.category_name?.replace("-"," ").split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}</h3>

@@ -2,9 +2,10 @@
 "use client";
 import { supabase } from "@/app/db";
 import React, { useEffect, useState } from "react";
+import { User } from "@supabase/supabase-js";
 
 const UserGreetText = () => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
     const fetchUser = async () => {
       const {

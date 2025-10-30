@@ -7,12 +7,12 @@ import {supabase,API, item, item_images} from "@/app/db";
 export default async function CategoryPage({ params }: { params: { category: string } }) {
     const urlCategoryName = params.category;
 
-    let categoryName:string=(await API(supabase.from('category').select('category_name').eq('category_name', urlCategoryName)))[0]?.category_name;
+    const categoryName:string=(await API(supabase.from('category').select('category_name').eq('category_name', urlCategoryName)))[0]?.category_name;
     
     if(urlCategoryName!=categoryName)
         notFound();
 
-    let categoryID:number=(await API(supabase.from('category').select('category_id').eq('category_name', urlCategoryName)))[0]?.category_id;
+    const categoryID:number=(await API(supabase.from('category').select('category_id').eq('category_name', urlCategoryName)))[0]?.category_id;
 
     let products:item[]=[];
     switch(categoryID){
@@ -24,7 +24,7 @@ export default async function CategoryPage({ params }: { params: { category: str
             break;
     }
 
-    let item_images:string[]=[];
+    const item_images:string[]=[];
     for(let i=0;i<products.length;i++){
         item_images[i]=(await API(supabase.from('item_images').select('*').eq('img_id', products[i].thumbnail_id)))[0]?.imgSrc ?? [];
     }
