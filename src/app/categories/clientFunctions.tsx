@@ -1,5 +1,5 @@
 'use client';
-import {LinkPreview} from '@/components/ui/link-preview';
+import { LinkPreview } from '@/components/ui/link-preview';
 import { category } from '@/app/db';
 import Image from "next/image";
 
