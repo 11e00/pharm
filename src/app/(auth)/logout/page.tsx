@@ -1,7 +1,6 @@
 'use client';
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
-import { WavyBackground } from "@/components/ui/wavy-background";
 
 const LogoutPage =  () => {
     useEffect(() => {

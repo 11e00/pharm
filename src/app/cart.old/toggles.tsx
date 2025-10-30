@@ -1,6 +1,8 @@
 "use client";
 
 import Link from 'next/link';
+import Image from "next/image";
+
 import React, { useState } from "react";
 import { usePathname } from 'next/navigation';
 import '../globals.css';

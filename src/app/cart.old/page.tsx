@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import '../globals.css'
 import { Dashboard,Header,Footer } from './toggles';
+import Image from "next/image";
 
 export default async function Cart() {
   return (

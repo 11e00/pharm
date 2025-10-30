@@ -67,7 +67,7 @@ export type item_images = {
   item_id?: number;
 };
 
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function API(call:any) {
     try {
         const { data, error } = await call;
@@ -84,7 +84,7 @@ export async function API(call:any) {
 export async function Name(customerInstanceID:number){
 
     //patenta
-    let name:string=JSON.stringify((await API(supabase.from('customer').select('*').eq('customer_instance_id',customerInstanceID)))?.[0].name).slice(1,-1);
+    const name:string=JSON.stringify((await API(supabase.from('customer').select('*').eq('customer_instance_id',customerInstanceID)))?.[0].name).slice(1,-1);
     //end of patenta
 
     return name;
@@ -92,11 +92,11 @@ export async function Name(customerInstanceID:number){
 
 export async function Search(text: string){
 
-    let items:item[]=await API(supabase.from('item').select('*').ilike('name',"%"+text+"%")) ?? [];
+    const items:item[]=await API(supabase.from('item').select('*').ilike('name',"%"+text+"%")) ?? [];
 
     if(items.length==1){
 
-        let categoryName:string=(await API(supabase.from('category').select('category_name').eq('category_id', items[0].category_id)))[0].category_name ?? [];
+        const categoryName:string=(await API(supabase.from('category').select('category_name').eq('category_id', items[0].category_id)))[0].category_name ?? [];
         redirect("/categories/"+categoryName+"/"+items[0].item_id);
     }
     else{

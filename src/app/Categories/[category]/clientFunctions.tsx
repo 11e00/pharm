@@ -1,5 +1,7 @@
 'use client';
 import { Fragment, useState } from 'react'
+import Image from "next/image";
+
 import {
   Dialog,
   DialogBackdrop,
@@ -56,7 +58,7 @@ export default function ProdList({ product_categories }: { product_categories: P
 // should actually be -> export default function CategoryLoad({products,filters={}}:{products:any,filters?:any}) {
 export default function LoadProducts({currentCategory,products,item_images}:{currentCategory:string,products:item[],item_images:string[]}) {
     
-    let filters:any=[]; //delete after right implementation
+    //const filters:any=[]; //delete after right implementation
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     return (
@@ -87,7 +89,7 @@ export default function LoadProducts({currentCategory,products,item_images}:{cur
                     </button>
                 </div>
 
-                {/* Filters */}
+                {/* Filters 
                 <form className="mt-4">
                     {filters?.map((section:any) => (
                     <Disclosure key={section.name} as="div" className="border-t border-gray-200 pt-4 pb-4">
@@ -149,7 +151,8 @@ export default function LoadProducts({currentCategory,products,item_images}:{cur
                     </Disclosure>
                     ))}
                 </form>
-                </DialogPanel>
+            */}
+            </DialogPanel>
             </div>
             </Dialog>
 
@@ -172,6 +175,7 @@ export default function LoadProducts({currentCategory,products,item_images}:{cur
                 </button>
 
                 <div className="hidden lg:block">
+                {/* Filters 
                     <form className="divide-y divide-gray-200">
                     {filters?.map((section:any) => (
                         <div key={section.name} className="py-10 first:pt-0 last:pb-0">
@@ -221,6 +225,7 @@ export default function LoadProducts({currentCategory,products,item_images}:{cur
                         </div>
                     ))}
                     </form>
+                */}
                 </div>
                 </aside>
 
