@@ -1,5 +1,5 @@
 'use client';
-import { LinkPreview } from '@/components/ui/link-preview';
+import Link from 'next/link';
 import { category } from '@/app/db';
 import Image from "next/image";
 
@@ -14,7 +14,7 @@ export default function LoadCategories({categories}:{categories:category[]}){
 
             <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:space-y-12 lg:gap-x-8">
             {categories.map((category:category) => (
-                <LinkPreview key={category.category_id} url={"/categories/"+category.category_name} className="group block">
+                <Link key={category.category_id} href={"/categories/"+category.category_name} className="group block">
                 <img
                     alt="item"
                     src={category.category_image!}
@@ -22,7 +22,7 @@ export default function LoadCategories({categories}:{categories:category[]}){
                 />
                 <h3 className="mt-4 text-base font-semibold text-gray-900">{category?.category_name?.replace("-"," ").split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}</h3>
                 <p className="mt-2 text-sm text-gray-500">{category.category_description}</p>
-                </LinkPreview>
+                </Link>
             ))}
             </div>
         </div>
