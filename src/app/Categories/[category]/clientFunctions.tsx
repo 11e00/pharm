@@ -20,11 +20,11 @@ import {
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PlusIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
-import { Drug, Images } from '@/app/db';
+import { item, item_images } from '@/app/db';
 
 /*
 type Products = {
-    drug_id: string;
+    item_id: string;
     price: string;
     name: string;
     stock: string;
@@ -34,8 +34,8 @@ type Products = {
 
 export default function ProdList({ product_categories }: { product_categories: Products[] }) {
     function LoadCatProd(prod: Products) {
-        console.log('Category selected:', prod);
-        if (prod.drug_id == '1') {
+        console.log('category selected:', prod);
+        if (prod.item_id == '1') {
 
         }
     }
@@ -43,7 +43,7 @@ export default function ProdList({ product_categories }: { product_categories: P
     return (
         <div className="categories">
             {product_categories.map((prod) => (
-                <div key={prod.drug_id} onClick={() => LoadCatProd(prod)} style={{ cursor: 'pointer' }}>
+                <div key={prod.item_id} onClick={() => LoadCatProd(prod)} style={{ cursor: 'pointer' }}>
                     [ {prod.name} ]
                 </div>
             ))}
@@ -54,7 +54,7 @@ export default function ProdList({ product_categories }: { product_categories: P
 
 ////TODO filters
 // should actually be -> export default function CategoryLoad({products,filters={}}:{products:any,filters?:any}) {
-export default function LoadProducts({currentCategory,products,images}:{currentCategory:string,products:Drug[],images:string[]}) {
+export default function LoadProducts({currentCategory,products,item_images}:{currentCategory:string,products:item[],item_images:string[]}) {
     
     let filters:any=[]; //delete after right implementation
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -153,15 +153,12 @@ export default function LoadProducts({currentCategory,products,images}:{currentC
             </div>
             </Dialog>
 
-            <main className="mx-auto max-w-2xl px-4 lg:max-w-7xl lg:px-8">
-            <div className="border-b border-gray-200 pt-10 pb-10">
-                <h1 className="text-4xl font-bold tracking-tight text-gray-900">{currentCategory.replace("-"," ")}</h1>
-                <p className="mt-4 text-base text-gray-500">
-                Checkout this 💩 out!
-                </p>
+            <main className="mx-auto max-w-2xl px-4 py-4 lg:max-w-7xl">
+            <div className="border-b border-gray-200 pb-2">
+                <h1 className="text-4xl font-bold tracking-tight text-gray-900">{currentCategory?.replace("-"," ").split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}</h1>
             </div>
 
-            <div className="pt-12 pb-24 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
+            <div className="pt-5 pb-24 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
                 <aside>
                 <h2 className="sr-only">Filters</h2>
 
@@ -232,20 +229,20 @@ export default function LoadProducts({currentCategory,products,images}:{currentC
                     Products
                 </h2>
 
-                <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
-                    {products?.map((product:Drug,i:number) => (
+                <div className="grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-6 xl:grid-cols-4">
+                    {products?.map((product:item,i:number) => (
                     <div
-                        key={product.drug_id}
+                        key={product.item_id}
                         className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
                     >
                         <img
-                        alt={"product "+product.drug_id}
-                        src={images[i]}
-                        className="aspect-3/4 bg-gray-200 object-cover group-hover:opacity-75 sm:h-96"
+                        alt={"product "+product.item_id}
+                        src={item_images[i]}
+                        className="aspect-4/3 bg-gray-200 object-cover group-hover:opacity-75 sm:h-50"
                         />
                         <div className="flex flex-1 flex-col space-y-2 p-4">
                         <h3 className="text-sm font-medium text-gray-900">
-                            <Link href={currentCategory+"/"+product.drug_id}>
+                            <Link href={currentCategory+"/"+product.item_id}>
                             <span aria-hidden="true" className="absolute inset-0" />
                             {product.name}
                             </Link>

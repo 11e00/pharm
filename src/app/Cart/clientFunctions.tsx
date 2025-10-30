@@ -269,7 +269,7 @@ const footerNavigation = {
     { name: 'Privacy', href: '#' },
   ],
   customerService: [
-    { name: 'Contact', href: '#' },
+    { name: 'contact', href: '#' },
     { name: 'Shipping', href: '#' },
     { name: 'Returns', href: '#' },
     { name: 'Warranty', href: '#' },
@@ -554,11 +554,11 @@ export default function Example() {
 
                 // 
                 <a href="#" className="p-2 text-gray-400 hover:text-gray-500 lg:ml-4">
-                  <span className="sr-only">Account</span>
+                  <span className="sr-only">account</span>
                   <UserIcon aria-hidden="true" className="size-6" />
                 </a>
 
-                // Cart
+                // cart
                 <div className="ml-4 flow-root lg:ml-6">
                   <a href="#" className="group -m-2 flex items-center p-2">
                     <ShoppingBagIcon
@@ -576,11 +576,10 @@ export default function Example() {
       </header>
     */}
       <main>
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl pt-16">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Shopping Cart</h1>
+        <div className="mx-auto max-w-5xl px-4 py-4">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Shopping cart</h1>
 
-            <form className="mt-12">
+            <form className="mt-4">
               <section aria-labelledby="cart-heading">
                 <h2 id="cart-heading" className="sr-only">
                   Items in your shopping cart
@@ -661,7 +660,7 @@ export default function Example() {
               </section>
 
               {/* Order summary */}
-              <section aria-labelledby="summary-heading" className="mt-10 sm:ml-32 sm:pl-6">
+              <section aria-labelledby="summary-heading" className="mt-10">
                 <div className="rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:p-8">
                   <h2 id="summary-heading" className="sr-only">
                     Order summary
@@ -708,7 +707,6 @@ export default function Example() {
                 </div>
               </section>
             </form>
-          </div>
         </div>
 
         {/* Policy grid */}

@@ -27,9 +27,9 @@ export default function Page404() {
             >
               Go back
             </Link>
-            <a href="./Contact" className="text-sm font-semibold text-gray-900">
-              Contact <span aria-hidden="true">&rarr;</span>
-            </a>
+            <Link href="./contact" className="text-sm font-semibold text-gray-900">
+              contact <span aria-hidden="true">&rarr;</span>
+            </Link>
           </div>
         </div>
       </main>
