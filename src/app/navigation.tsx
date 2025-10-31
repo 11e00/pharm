@@ -11,6 +11,8 @@ import {
   IconShoppingCart,
   IconUserCircle,
   IconSearch,
+  IconArrowLeft,
+  IconArrowRight
 } from "@tabler/icons-react";
 import { Search } from "@/app/db"; // ✅ your existing Search function
 
@@ -38,6 +40,21 @@ const handleSearch = (q: string) => {
     setShowSearch(false);
   }, [pathname]);
   const links = [
+    {
+    title: "Go Back",
+    href: "#", // stays here so it's clickable
+    icon: (
+        <IconArrowLeft
+        className={
+            "h-full w-full cursor-pointer "
+        }
+        onClick={(e) => {
+            e.preventDefault(); // prevent "#" jump
+            router.back();
+        }}
+        />
+    ),
+    },
     {
       title: "Home",
       href: "/",
@@ -137,6 +154,7 @@ const handleSearch = (q: string) => {
           handleSearch(query);
         }}
       >
+        <div className="relative w-full flex justify-center items-center">
         <input
           type="text"
           name="search"
@@ -154,8 +172,27 @@ const handleSearch = (q: string) => {
     focus:outline-none focus:border-black
     dark:text-white dark:border-white dark:placeholder-white
   "        />
-        
-
+      <button
+    type="submit"
+        className="absolute right-0 bottom-8 translate-y-1/2
+          flex items-center gap-1
+          text-green-600 dark:text-green-400
+          border border-green-400 
+          bg-white/70 dark:bg-zinc-900/70
+          backdrop-blur-sm
+          px-3 py-1 
+          rounded-full shadow-sm
+          text-sm font-semibold
+          hover:bg-green-50 dark:hover:bg-green-900/40
+          transition-all duration-300
+    "
+  >
+            <span className="text-sm font-semibold leading-none">Enter</span>
+        <span className="flex items-center justify-center w-4 h-4">
+          <IconArrowRight size={16} stroke={2} />
+        </span>
+  </button>
+    </div>
         
       </form>
       </div>
