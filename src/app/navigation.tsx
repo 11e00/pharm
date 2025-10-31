@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState,useEffect } from "react";
+import Link from "next/link";
 import { usePathname,useRouter } from "next/navigation";
 import { FloatingDock } from "@/components/ui/floating-dock";
 import {
@@ -98,20 +99,6 @@ const handleSearch = (q: string) => {
       ),
     },
     {
-      title: "Account",
-      href: "/account/profile",
-      icon: (
-        <IconUserCircle
-          className={
-            "h-full w-full " +
-            (pathname.startsWith("/account")
-              ? "text-green-500"
-              : "text-neutral-500 dark:text-neutral-300")
-          }
-        />
-      ),
-    },
-    {
     title: "Search",
     href: "#", // stays here so it's clickable
     icon: (
@@ -202,6 +189,23 @@ const handleSearch = (q: string) => {
 
         {/* main nav */}
         <FloatingDock items={links} />
+        <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="fixed top-4 right-4 z-30 p-2 rounded-full bg-white/80 dark:bg-neutral-900/80
+                        shadow-lg backdrop-blur-md border border-green-400 hover:scale-105 transition-transform"
+            >
+            <Link href="/account/profile">
+                <IconUserCircle
+                className={
+                    "h-7 w-7 cursor-pointer " +
+                    (pathname.startsWith("/account")
+                    ? "text-green-500"
+                    : "text-neutral-500 dark:text-neutral-300")
+                }
+                />
+            </Link>
+        </motion.div>
       </div>
     </div>
   );
