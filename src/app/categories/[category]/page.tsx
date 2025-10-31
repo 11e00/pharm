@@ -12,6 +12,8 @@ export default async function CategoryPage({ params }: { params: { category: str
     if(urlCategoryName!=categoryName)
         notFound();
 
+    const categoryDescription:string | null=(await API(supabase.from('category').select('category_description').eq('category_name', urlCategoryName)))[0]?.category_description;
+    
     const categoryID:number=(await API(supabase.from('category').select('category_id').eq('category_name', urlCategoryName)))[0]?.category_id;
 
     let products:item[]=[];
@@ -30,6 +32,6 @@ export default async function CategoryPage({ params }: { params: { category: str
     }
 
     return (
-        <LoadProducts currentCategory={urlCategoryName} products={products} item_images={item_images}/>
+        <LoadProducts currentCategory={urlCategoryName} categoryDescription={categoryDescription} products={products} item_images={item_images}/>
     );
 }
