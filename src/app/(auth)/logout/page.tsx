@@ -10,9 +10,9 @@ import {
 } from "../../../components/ui/card"
 
 const LogoutPage =  () => {
-    //useEffect(() => {
-    //   setTimeout(()=> redirect("/"), 3000);
-    //}, []);
+    useEffect(() => {
+       setTimeout(()=> redirect("/"), 3000);
+    }, []);
   return (
         <div className="flex pt-75 justify-center">
         <Card className='z-10 p-2 font-mono'>
