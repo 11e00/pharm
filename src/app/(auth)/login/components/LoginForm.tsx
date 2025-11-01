@@ -11,7 +11,7 @@ import SignInWithSMSButton from "./SignInWithSMSButton"
 
 export function LoginForm() {
   return (
-    <Card className="mx-auto max-w-sm">
+    <Card className="mx-auto w-sm max-w-sm">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
@@ -24,10 +24,7 @@ export function LoginForm() {
              <SignInWithGoogleButton/>
              <SignInWithFacebookButton/> 
              <hr/>
-             <Card className="p-3">
-                <CardTitle className="text-lg text-center">Login with Phone Number</CardTitle>
                 <SignInWithSMSButton />
-            </Card>
             </div>
         </form>
       </CardContent>

@@ -4,31 +4,31 @@ import { supabase } from "@/app/db";
 import { Button } from "@/components/ui/button";
 
 export default function SignInWithSMSButton() {
-  const [digits, setDigits] = useState(""); // only 8 digits after +357
+  const [step, setStep] = useState<"start" | "choose" | "form" | "otp">("start");
+  const [existingUser, setExistingUser] = useState<boolean | null>(null);
+
+  const [digits, setDigits] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [otpDigits, setOtpDigits] = useState<string[]>(["", "", "", "", "", ""]);
-  const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [existingUser, setExistingUser] = useState(false);
 
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
   const phone = `+357${digits}`;
 
+  // --- Send OTP ---
   async function sendOtp() {
     if (digits.length !== 8) {
       alert("Please enter a valid 8-digit phone number");
       return;
     }
-
-    if (!existingUser && !displayName) {
+    if (existingUser === false && !displayName) {
       alert("Please enter a display name");
       return;
     }
 
     setLoading(true);
 
-    const full_name = displayName;
     const { error } = existingUser
       ? await supabase.auth.signInWithOtp({
           phone,
@@ -36,21 +36,16 @@ export default function SignInWithSMSButton() {
         })
       : await supabase.auth.signInWithOtp({
           phone,
-          options: {
-            shouldCreateUser: true,
-            data: { full_name },
-          },
+          options: { shouldCreateUser: true, data: { full_name: displayName } },
         });
 
     setLoading(false);
 
-    if (error) {
-      alert(error.message);
-    } else {
-      setOtpSent(true);
-    }
+    if (error) alert(error.message);
+    else setStep("otp");
   }
 
+  // --- Verify OTP ---
   async function verifyOtp() {
     const code = otpDigits.join("");
     if (code.length !== 6) {
@@ -66,28 +61,22 @@ export default function SignInWithSMSButton() {
     });
     setLoading(false);
 
-    if (error) {
-      alert(error.message);
-    } else if (data?.session) {
-      window.location.href = "/";
-    }
+    if (error) alert(error.message);
+    else if (data?.session) window.location.href = "/";
   }
 
-  function handleDigitChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value.replace(/\D/g, ""); // digits only
+  // --- Handlers ---
+  const handleDigitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, "");
     if (value.length <= 8) setDigits(value);
-  }
+  };
 
-  // OTP logic
   const handleOtpChange = (value: string, index: number) => {
-    if (!/^\d?$/.test(value)) return; // only allow 0-9 single digit
+    if (!/^\d?$/.test(value)) return;
     const newOtp = [...otpDigits];
     newOtp[index] = value;
     setOtpDigits(newOtp);
-
-    if (value && index < 5) {
-      inputsRef.current[index + 1]?.focus();
-    }
+    if (value && index < 5) inputsRef.current[index + 1]?.focus();
   };
 
   const handleOtpKeyDown = (
@@ -111,28 +100,50 @@ export default function SignInWithSMSButton() {
     }
   };
 
+  // --- UI ---
   return (
-    <div className="flex flex-col gap-3 pt-3">
-        <hr/>
-      {!otpSent ? (
-        <>
-          <label className="flex items-center gap-2 text-sm">
-            <input
-              type="checkbox"
-              checked={existingUser}
-              onChange={() => setExistingUser((v) => !v)}
-            />
-            I already have a phone number account
-          </label>
+    <div className="flex flex-col gap-3">
+      {step === "start" && (
+        <Button variant="outline" onClick={() => setStep("choose")}>Login with Phone Number</Button>
+      )}
 
+      {step === "choose" && (
+        <div className="flex flex-col gap-3">
+          <p className="text-sm text-gray-700">
+            Do you already have a phone number account?
+          </p>
+          <div className="flex justify-center gap-4">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setExistingUser(true);
+                setStep("form");
+              }}
+            >
+              Yes, I already have one
+            </Button>
+            <Button
+              onClick={() => {
+                setExistingUser(false);
+                setStep("form");
+              }}
+            >
+              No, I’m new here
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {step === "form" && (
+        <>
           {!existingUser && (
             <input
               type="text"
               placeholder="Display Name"
               value={displayName}
-              required
               onChange={(e) => setDisplayName(e.target.value)}
               className="border p-2 rounded"
+              required
             />
           )}
 
@@ -146,8 +157,8 @@ export default function SignInWithSMSButton() {
               pattern="[0-9]*"
               placeholder="########"
               value={digits}
-              required
               onChange={handleDigitChange}
+              required
               className="flex-1 p-2 outline-none"
             />
           </div>
@@ -159,16 +170,24 @@ export default function SignInWithSMSButton() {
               ? "Send OTP (Login)"
               : "Send OTP (Sign Up)"}
           </Button>
+
+          <Button
+            variant="ghost"
+            onClick={() => setStep("choose")}
+            className="text-sm text-gray-500"
+          >
+            ← Go Back
+          </Button>
         </>
-      ) : (
+      )}
+
+      {step === "otp" && (
         <>
           <div className="flex justify-center gap-2 mt-3 mb-1">
             {otpDigits.map((digit, i) => (
-            <input
+              <input
                 key={i}
-                ref={(el) => {
-                inputsRef.current[i] = el;
-                }}
+                ref={(el) => {inputsRef.current[i] = el;}}
                 type="text"
                 inputMode="numeric"
                 maxLength={1}
@@ -177,12 +196,20 @@ export default function SignInWithSMSButton() {
                 onChange={(e) => handleOtpChange(e.target.value, i)}
                 onKeyDown={(e) => handleOtpKeyDown(e, i)}
                 onPaste={handleOtpPaste}
-            />
+              />
             ))}
           </div>
 
           <Button onClick={verifyOtp} disabled={loading}>
             {loading ? "Verifying..." : "Verify"}
+          </Button>
+
+          <Button
+            variant="ghost"
+            onClick={() => setStep("form")}
+            className="text-sm text-gray-500"
+          >
+            ← Go Back
           </Button>
         </>
       )}
