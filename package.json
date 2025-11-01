@@ -21,6 +21,7 @@
     "@yudiel/react-qr-scanner": "^2.3.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.544.0",
     "motion": "^12.23.24",
     "next": "15.5.3",
@@ -29,11 +30,13 @@
     "react-dom": "^19.0.0",
     "simplex-noise": "^4.0.3",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "twilio": "^5.10.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "4.1.13",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "24.5.0",
     "@types/react": "19.1.13",
     "@types/react-dom": "^19",

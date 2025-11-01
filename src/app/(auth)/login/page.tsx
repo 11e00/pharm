@@ -4,8 +4,8 @@ import { LoginForm } from './components/LoginForm'
 const LoginPage = () => {
   return (
     <div className="flex justify-center">
-        <div className='z-10 pt-25'>
-        <LoginForm/>    
+        <div className='z-10 pt-20'>
+            <LoginForm/>    
         </div>
     </div>
   )

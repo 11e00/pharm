@@ -7,6 +7,7 @@ import {
 } from "../../../../components/ui/card"
 import SignInWithGoogleButton from "./SignInWithGoogleButton"
 import SignInWithFacebookButton from "./SignInWithFacebookButton"
+import SignInWithSMSButton from "./SignInWithSMSButton"
 
 export function LoginForm() {
   return (
@@ -22,6 +23,11 @@ export function LoginForm() {
             <div className="grid gap-4">
              <SignInWithGoogleButton/>
              <SignInWithFacebookButton/> 
+             <hr/>
+             <Card className="p-3">
+                <CardTitle className="text-lg text-center">Login with Phone Number</CardTitle>
+                <SignInWithSMSButton />
+            </Card>
             </div>
         </form>
       </CardContent>
